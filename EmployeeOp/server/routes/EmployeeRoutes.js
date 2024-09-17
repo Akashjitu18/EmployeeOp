@@ -1,8 +1,6 @@
 import express from 'express';
 import multer from 'multer';
 import Employee from '../models/Employee.js';
-import fs from 'fs';
-import path from 'path';
 
 
 const router = express.Router();
@@ -37,27 +35,6 @@ router.get('/employees', async (req, res) => {
     }
 });
 
-// router.post('/employees', upload.single('f_Image'), async (req, res) => {
-//     const { f_Id, f_Name, f_Email, f_Mobile, f_Designation, f_gender, f_Course } = req.body;
-//     const f_Image = req.file ? req.file.path : null; 
-//     try {
-//         const newEmployee = new Employee({
-//             f_Id,
-//             f_Image,
-//             f_Name,
-//             f_Email,
-//             f_Mobile,
-//             f_Designation,
-//             f_gender,
-//             f_Course,
-//         });
-
-//         await newEmployee.save();
-//         res.json({ message: 'Employee added successfully' });
-//     } catch (error) {
-//         res.status(500).json({ message: 'Server error' });
-//     }
-// });
 
 router.post('/employees', upload.single('f_Image'), async (req, res) => {
     const { f_Id, f_Name, f_Email, f_Mobile, f_Designation, f_gender, f_Course } = req.body;
@@ -115,18 +92,7 @@ router.get('/employees/:id', async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 });
-// router.put('/employees/:id', async (req, res) => {
-//     try {
-//         const updatedEmployee = await Employee.findByIdAndUpdate(req.params.id, req.body, { new: true });
-//         if (updatedEmployee) {
-//             res.json({ message: 'Employee updated successfully', employee: updatedEmployee });
-//         } else {
-//             res.status(404).json({ message: 'Employee not found' });
-//         }
-//     } catch (error) {
-//         res.status(500).json({ message: 'Server error' });
-//     }
-// });
+
 router.put('/employees/:id', upload.single('f_Image'), async (req, res) => {
     try {
         const { id } = req.params;
